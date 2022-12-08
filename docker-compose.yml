@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      target: 'develop-stage'
+    ports:
+      - '9000:9000'
+    volumes:
+      - .:/app
+    command: /bin/sh -c "yarn && quasar dev"
+    container_name: quasar_app
+    restart: always
+    stdin_open: true
