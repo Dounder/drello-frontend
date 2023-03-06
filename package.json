@@ -11,7 +11,7 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@quasar/extras": "^1.0.0",
+    "@quasar/extras": "^1.15.11",
     "@tanstack/vue-query": "^4.19.1",
     "axios": "^0.21.1",
     "dotenv": "^16.0.3",

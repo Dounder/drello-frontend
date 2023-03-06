@@ -1,1 +1,34 @@
 // app global css in SCSS form
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+$title: 'Lato', sans-serif;
+$body: 'Poppins', sans-serif;
+
+html {
+  color: #f5f6fb;
+}
+
+p,
+span {
+  font-family: $body;
+}
+
+@for $index from 1 through 6 {
+  h#{$index} {
+    font-family: $title;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(45deg);
+  }
+  50% {
+    transform: translateY(random(5) + rem) rotate(45deg);
+  }
+}
