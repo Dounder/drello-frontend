@@ -17,11 +17,12 @@ export const useAuthStore = defineStore('auth', () => {
     getToken: computed(() => authData.value.token),
     getError: computed(() => authData.value.error),
     getErrorMessage: computed(() => `[${authData.value.error?.statusCode}] ${authData.value.error?.message}`),
+    isAuthenticated: computed(() => !!authData.value.user),
 
     //! Actions
     setAuthData: (auhtData: AuthData) => {
       authData.value = auhtData;
-      sessionStorage.setItem('token', authData.value.token);
+      sessionStorage.setItem('token', authData.value.token ?? '');
     },
     setError: (responseError: ResponseError | null) => {
       authData.value.error = responseError;

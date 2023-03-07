@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
 import { QForm } from 'quasar';
 import { CircleComponent, CrossComponent } from 'src/shared/components';
 import { requiredString } from 'src/shared/helpers';
+import { ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import CardBackground from '../components/CardBackground.vue';
 import useAuth from '../composables/useAuth';
+import useAuthMutation from '../composables/useAuthMutation';
 
-const { loginMutation, getError, getErrorMessage } = useAuth();
+const { getError, getErrorMessage } = useAuth();
+const { loginMutation } = useAuthMutation();
+const router = useRouter();
+
 const loginForm = ref({ username: 'admin', password: 'Aa1234!' });
 const isPwd = ref<boolean>(true);
 const form = ref<QForm>();
@@ -26,6 +31,7 @@ watch(
       loginForm.value = { username: '', password: '' };
       loginMutation.reset();
       form.value?.resetValidation();
+      router.replace({ name: 'home-page' });
     }
   }
 );
