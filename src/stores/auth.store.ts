@@ -23,12 +23,23 @@ export const useAuthStore = defineStore('auth', () => {
     setAuthData: (auhtData: AuthData) => {
       authData.value = auhtData;
       sessionStorage.setItem('token', authData.value.token ?? '');
+      sessionStorage.setItem('user', JSON.stringify(authData.value.user));
+    },
+    refreshData: (auhtData: AuthData) => {
+      authData.value = auhtData;
+      sessionStorage.setItem('token', authData.value.token ?? '');
+      sessionStorage.setItem('user', JSON.stringify(authData.value.user));
     },
     setError: (responseError: ResponseError | null) => {
       authData.value.error = responseError;
     },
     deleteAuthData: () => {
       authData.value = initialData;
+    },
+    reloadData: () => {
+      const token = sessionStorage.getItem('token');
+      const user = JSON.parse(sessionStorage.getItem('user') ?? 'null');
+      if (user) authData.value = { ...initialData, user, token };
     },
   };
 });

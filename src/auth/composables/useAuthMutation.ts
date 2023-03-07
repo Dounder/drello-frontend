@@ -15,14 +15,14 @@ const login = async (loginForm: LoginForm): Promise<AuthData> => {
 };
 
 const useAuthMutation = () => {
-  const { authStore: store } = useAuth();
+  const { store } = useAuth();
   const queryClient = useQueryClient();
 
   const loginMutation = useMutation(login, {
     onSuccess: (authResponse) => {
       queryClient.invalidateQueries({ queryKey: ['auth'], exact: false });
       queryClient.refetchQueries(['auth'], { exact: false });
-      queryClient.setQueryData(['auth', authResponse.token], authResponse.token);
+      queryClient.setQueryData(['auth', authResponse.user?.id], authResponse);
       store.setAuthData(authResponse);
       store.setError(null);
     },
@@ -32,6 +32,7 @@ const useAuthMutation = () => {
         : store.setError({ error: 'Unexpected Error', message: `${error}`, statusCode: 0 });
     },
   });
+
   return {
     loginMutation,
   };

@@ -13,7 +13,7 @@ const useAuth = () => {
     getErrorMessage,
     isAuthenticated,
     //? Methods
-    authStore: store,
+    store,
   };
 };
 
