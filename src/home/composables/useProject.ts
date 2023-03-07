@@ -1,5 +1,5 @@
+import { api } from 'src/boot/api';
 import { useQuery } from '@tanstack/vue-query';
-import { apiGql } from 'src/boot';
 
 const getProjects = async () => {
   const query = `{
@@ -12,7 +12,7 @@ const getProjects = async () => {
     }
   }
 }`;
-  const { data } = await apiGql.post('', { data: query });
+  const { data } = await api.post('/graphql', { query });
   console.log(data);
   return data;
 };

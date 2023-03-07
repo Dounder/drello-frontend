@@ -16,3 +16,23 @@ export interface User {
   password: string;
   roles: string[];
 }
+
+export interface AuthError {
+  errors: Error[];
+  data: null;
+}
+
+export interface Error {
+  message: string;
+  extensions: Extensions;
+}
+
+export interface Extensions {
+  code: string;
+  response: Response;
+}
+
+export interface Response {
+  statusCode: number;
+  message: string;
+}

@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
-import axios from 'axios';
-import { apiRest } from 'src/boot';
+import { api, axios } from 'src/boot/api';
 import { AuthData } from '../interfaces/auth.interface';
 import useAuth from './useAuth';
 
@@ -10,7 +9,7 @@ interface LoginForm {
 }
 
 const login = async (loginForm: LoginForm): Promise<AuthData> => {
-  const { data } = await apiRest.post<AuthData>('/auth/sign_in', loginForm);
+  const { data } = await api.post<AuthData>('/auth/sign_in', loginForm);
   return data;
 };
 
@@ -33,8 +32,13 @@ const useAuthMutation = () => {
     },
   });
 
+  const updateAuthData = (authData: AuthData) => {
+    queryClient.setQueryData(['auth', authData.user?.id], authData);
+  };
+
   return {
     loginMutation,
+    updateAuthData,
   };
 };
 
