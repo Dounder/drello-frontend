@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { toRefs } from 'vue';
-import { CssUnit } from '../types';
+import { CssUnit } from '../interfaces';
 
 interface Props {
   index: number;
