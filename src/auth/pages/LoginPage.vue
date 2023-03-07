@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import CircleComponent from 'src/modules/shared/components/CircleComponent.vue';
-import CrossComponent from 'src/modules/shared/components/CrossComponent.vue';
+import { CircleComponent, CrossComponent } from 'src/shared/components';
 import CardBackground from '../components/CardBackground.vue';
+import { requiredString } from 'src/shared/helpers';
 import { QForm } from 'quasar';
 
-const username = ref<string | null>(null);
-const password = ref<string | null>(null);
+const username = ref<string | null>('admin');
+const password = ref<string | null>('Aa1234!');
+const isPwd = ref<boolean>(true);
 const form = ref<QForm>();
 
 const onSubmit = () => {
@@ -22,9 +23,10 @@ const onSubmit = () => {
 const onReset = () => {
   if (!form.value) return;
 
+  form.value.reset();
+
   username.value = null;
   password.value = null;
-  form.value.resetValidation();
 };
 </script>
 
@@ -44,7 +46,7 @@ const onReset = () => {
           label="Username"
           no-error-icon
           lazy-rules
-          :rules="[(val) => !!val || 'Username required']"
+          :rules="[requiredString]"
         />
         <q-input
           dark
@@ -53,15 +55,22 @@ const onReset = () => {
           class="full-width"
           color="white"
           v-model="password"
-          type="text"
+          :type="isPwd ? 'password' : 'text'"
           label="Password"
           no-error-icon
           lazy-rules
-          :rules="[(val) => !!val || 'Password required']"
-        />
-        <q-btn rounded flat class="card-form__btn" text-color="white" label="log in" type="submit">
-          <q-icon class="q-pl-sm" color="white" name="o_login" />
-        </q-btn>
+          :rules="[requiredString]"
+        >
+          <template v-slot:append>
+            <q-icon
+              color="white"
+              :name="isPwd ? 'o_visibility_off' : 'o_visibility'"
+              class="cursor-pointer"
+              @click="isPwd = !isPwd"
+            />
+          </template>
+        </q-input>
+        <q-btn rounded flat class="card-form__btn" text-color="white" label="log in" type="submit" />
       </q-form>
       <router-link class="card-link" :to="{ name: 'forgot-password' }">FORGOT YOUR PASSWORD?</router-link>
 

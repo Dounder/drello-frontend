@@ -1,5 +1,6 @@
 import axios from 'axios';
 
-const api = axios.create({ baseURL: process.env.API_URL });
+const apiRest = axios.create({ baseURL: process.env.API_REST_URL });
+const apiGql = axios.create({ baseURL: process.env.API_GQL_URL });
 
-export { api };
+export { apiRest, apiGql };
