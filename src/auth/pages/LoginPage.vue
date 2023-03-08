@@ -93,7 +93,7 @@ watch(
 
 <style lang="scss" scoped>
 %card {
-  box-shadow: 0 0 1rem 1px $dark;
+  box-shadow: 0 0 1rem 1px $primary;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -126,7 +126,7 @@ watch(
   @extend %card;
   width: 60rem;
   height: 40rem;
-  background: $dark;
+  background: $primary;
   position: relative;
   overflow: hidden;
   &-title {
@@ -140,12 +140,12 @@ watch(
   &-form {
     @extend %card;
     width: 40%;
-    background: lighten($dark, 10);
+    background: lighten($primary, 10);
     padding: 2rem;
     gap: 1rem;
     z-index: 1;
     &__btn {
-      background: $dark;
+      background: $primary;
       width: 10rem;
     }
   }

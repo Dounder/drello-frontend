@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import HomeDrawer from 'src/home/components/HomeDrawer.vue';
 import { ref } from 'vue';
 
 const drawer = ref(true);
@@ -19,9 +20,7 @@ const drawer = ref(true);
       </q-toolbar>
     </q-header>
 
-    <q-drawer show-if-above v-model="drawer" side="left" bordered>
-      <!-- drawer content -->
-    </q-drawer>
+    <HomeDrawer />
 
     <q-page-container>
       <router-view />

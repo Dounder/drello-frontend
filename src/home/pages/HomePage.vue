@@ -6,18 +6,13 @@ const { projectsQuery } = useProject();
 
 <template>
   <q-page padding>
-    <h1 class="text-dark">HomePage</h1>
-    <pre>
-    <code>
-      {{ projectsQuery.isLoading.value }}
-    </code>
-    </pre>
-    <pre>
-    <code>
-      {{ projectsQuery.data.value }}
-    </code>
-    </pre>
+    <h1>HomePage</h1>
+    <pre>{{ projectsQuery.data }}</pre>
   </q-page>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.q-page {
+  background: darken($primary, 5);
+}
+</style>

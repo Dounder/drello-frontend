@@ -38,7 +38,7 @@
       content: '';
       width: 5rem;
       height: 100%;
-      background: $dark;
+      background: $primary;
       position: absolute;
       top: 0;
       left: -1px;
