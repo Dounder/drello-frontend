@@ -13,7 +13,6 @@ const getProjects = async () => {
   }
 }`;
   const { data } = await api.post('/graphql', { query });
-  console.log(data);
   return data;
 };
 

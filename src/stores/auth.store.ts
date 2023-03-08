@@ -35,6 +35,7 @@ export const useAuthStore = defineStore('auth', () => {
     },
     deleteAuthData: () => {
       authData.value = initialData;
+      sessionStorage.clear();
     },
     reloadData: () => {
       const token = sessionStorage.getItem('token');

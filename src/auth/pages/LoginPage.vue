@@ -31,7 +31,7 @@ watch(
       loginForm.value = { username: '', password: '' };
       loginMutation.reset();
       form.value?.resetValidation();
-      router.replace({ name: 'home-page' });
+      router.replace({ name: 'projects-page' });
     }
   }
 );
@@ -82,7 +82,7 @@ watch(
       <article class="card-error" :class="getError ? 'active' : 'inactive'">
         {{ getErrorMessage }}
       </article>
-      <router-link class="card-link" :to="{ name: 'forgot-password' }">FORGOT YOUR PASSWORD?</router-link>
+      <router-link class="card-link" :to="{ name: 'login' }">FORGOT YOUR PASSWORD?</router-link>
 
       <CardBackground />
       <CrossComponent :index="2" size="3rem" top="5rem" left="5rem" />
