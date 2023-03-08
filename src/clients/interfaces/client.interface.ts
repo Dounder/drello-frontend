@@ -1,3 +1,7 @@
+export interface ClientsList {
+  [x: string]: Client;
+}
+
 export interface Client {
   id: string;
   createdAt: Date;

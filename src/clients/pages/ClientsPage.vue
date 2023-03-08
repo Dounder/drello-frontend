@@ -2,7 +2,7 @@
 import ClientCard from '../components/ClientCard.vue';
 import useClient from '../composables/useClient';
 
-const { clients, clientsLoading } = useClient();
+const { clientsQuery } = useClient();
 </script>
 
 <template>
@@ -11,11 +11,11 @@ const { clients, clientsLoading } = useClient();
       <h2 class="client-title">Clients</h2>
       <q-separator spaced dark />
     </section>
-    <section class="client-container">
-      <ClientCard v-for="client in 1" :key="client" />
-      <!-- <ClientCard v-for="client in clients" :key="client.id" /> -->
+    <section class="client-container" v-if="!clientsQuery.isLoading.value">
+      <pre>{{ clientsQuery.data }}</pre>
+      <ClientCard :client="client" v-for="client in clientsQuery.data.value" :key="client.id" />
     </section>
-    <q-inner-loading :showing="clientsLoading" dark>
+    <q-inner-loading :showing="clientsQuery.isLoading.value" dark>
       <q-spinner-gears size="50px" color="secondary" />
     </q-inner-loading>
   </q-page>

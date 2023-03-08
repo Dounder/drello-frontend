@@ -9,14 +9,10 @@ const getClients = async (): Promise<Client[]> => {
 };
 
 const useClient = () => {
-  const { data: clients, isLoading: clientsLoading } = useQuery(['clients'], () => getClients(), { staleTime: 1000 });
+  const clientsQuery = useQuery(['clients'], () => getClients(), { staleTime: 1000 });
 
   return {
-    //* Props
-    clients,
-    clientsLoading,
-    //! Getters
-    //? Methods
+    clientsQuery,
   };
 };
 
