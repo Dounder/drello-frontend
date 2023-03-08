@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import { HomeDrawer, HomeHeader } from 'src/home/components';
-import { ref } from 'vue';
-
-const drawer = ref(true);
 </script>
 
 <template>
   <q-layout view="hHh lpR fFf">
-    <HomeHeader @toggle:drawer="drawer = !drawer" />
+    <HomeHeader />
 
-    <HomeDrawer :drawer="drawer" />
+    <HomeDrawer />
 
     <q-page-container>
       <router-view />

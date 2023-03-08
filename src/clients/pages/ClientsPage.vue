@@ -1,13 +1,40 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import ClientCard from '../components/ClientCard.vue';
+import useClient from '../composables/useClient';
+
+const { clients, clientsLoading } = useClient();
+</script>
 
 <template>
-  <q-page padding class="flex flex-center">
-    <h1>Clients Page</h1>
+  <q-page padding class="client">
+    <section class="client-header">
+      <h2 class="client-title">Clients</h2>
+      <q-separator spaced dark />
+    </section>
+    <section class="client-container">
+      <ClientCard v-for="client in 1" :key="client" />
+      <!-- <ClientCard v-for="client in clients" :key="client.id" /> -->
+    </section>
+    <q-inner-loading :showing="clientsLoading" dark>
+      <q-spinner-gears size="50px" color="secondary" />
+    </q-inner-loading>
   </q-page>
 </template>
 
 <style lang="scss" scoped>
-.q-page {
+.client {
   background: darken($primary, 8);
+  &-header {
+    padding: 0 0 1rem;
+  }
+  &-title {
+    margin: 0;
+  }
+  &-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 1rem;
+    grid-auto-flow: dense;
+  }
 }
 </style>

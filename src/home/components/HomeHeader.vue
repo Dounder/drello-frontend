@@ -1,13 +1,14 @@
 <script setup lang="ts">
+import { useHome } from 'src/shared/composables';
 import HeaderMenu from './HeaderMenu.vue';
 
-const emits = defineEmits<{ (e: 'toggle:drawer'): void }>();
+const { store } = useHome();
 </script>
 
 <template>
   <q-header bordered class="bg-primary text-white">
     <q-toolbar>
-      <q-btn flat round color="white" icon="o_menu" @click="emits('toggle:drawer')" />
+      <q-btn flat round color="white" icon="o_menu" @click="store.toggleDrawer" />
       <q-toolbar-title translate="no"> Drello </q-toolbar-title>
 
       <q-space />

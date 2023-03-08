@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { toRefs } from 'vue';
+import { useHome } from 'src/shared/composables';
 import { drawerOptions } from '../helpers/drawer-options.helper';
 
-const props = defineProps<{ drawer: boolean }>();
-
-const { drawer } = toRefs(props);
+const { isDrawerOpen } = useHome();
 </script>
 
 <template>
-  <q-drawer v-model="drawer" show-if-above :width="250" :breakpoint="500" class="bg-dark" dark>
+  <q-drawer dark v-model="isDrawerOpen" show-if-above :width="250" :breakpoint="800" class="bg-dark">
     <q-scroll-area class="fit drawer">
       <q-list padding>
         <template v-for="(option, index) in drawerOptions" :key="index">
