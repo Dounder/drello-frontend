@@ -17,5 +17,5 @@ export interface Client {
 export interface AddClient {
   email: string;
   name: string;
-  nit?: string;
+  nit?: string | null;
 }

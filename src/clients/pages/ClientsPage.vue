@@ -6,7 +6,7 @@ import AddClientDialog from '../components/AddClientDialog.vue';
 import { useClient } from '../composables';
 
 const { clientsQuery } = useClient();
-const isOpen = ref<boolean>(false);
+const isOpen = ref<boolean>(true);
 </script>
 
 <template>
