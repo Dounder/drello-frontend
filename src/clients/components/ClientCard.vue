@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { toRefs } from 'vue';
 import { Client } from '../interfaces/client.interface';
 
 interface Props {
@@ -6,7 +7,7 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-console.log(props.client.name);
+const { client } = toRefs(props);
 </script>
 
 <template>

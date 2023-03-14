@@ -1,3 +1,7 @@
+export interface GqlResponse {
+  data: Client | Client[];
+}
+
 export interface ClientsList {
   [x: string]: Client;
 }
@@ -12,4 +16,10 @@ export interface Client {
   nit?: string | null;
   // createdBy: User!;
   // projects: [Project!]!;
+}
+
+export interface AddClient {
+  email: string;
+  name: string;
+  nit?: string;
 }
