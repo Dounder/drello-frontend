@@ -1,30 +1,17 @@
 <script setup lang="ts">
-import useClientMutation from '../composables/useClientMutation';
 import { PageHeader } from 'src/shared/components';
-import ClientCard from '../components/ClientCard.vue';
-import useClient from '../composables/useClient';
-import { watch } from 'vue';
+import { ref } from 'vue';
+import { ClientCard } from '../components';
+import AddClientDialog from '../components/AddClientDialog.vue';
+import { useClient } from '../composables';
 
 const { clientsQuery } = useClient();
-const { clientMutation } = useClientMutation();
-
-watch(
-  () => clientMutation.isSuccess.value,
-  (isSuccess: boolean) => {
-    if (isSuccess) {
-      clientMutation.reset();
-    }
-  }
-);
+const isOpen = ref<boolean>(false);
 </script>
 
 <template>
   <q-page padding class="client">
-    <PageHeader
-      title="Clients"
-      tooltip="Add new Client"
-      @on:add="clientMutation.mutate({ email: 'client1@info.com', name: 'Client 1' })"
-    />
+    <PageHeader title="Clients" tooltip="Add new Client" @on:add="isOpen = true" />
 
     <q-separator spaced dark />
 
@@ -35,6 +22,8 @@ watch(
     <q-inner-loading :showing="clientsQuery.isLoading.value" dark>
       <q-spinner-gears size="50px" color="secondary" />
     </q-inner-loading>
+
+    <AddClientDialog :is-open="isOpen" />
   </q-page>
 </template>
 

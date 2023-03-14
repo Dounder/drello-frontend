@@ -1,7 +1,3 @@
-export interface GqlResponse {
-  data: Client | Client[];
-}
-
 export interface ClientsList {
   [x: string]: Client;
 }

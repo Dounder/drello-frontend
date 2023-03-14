@@ -5,7 +5,7 @@ const useDialog = () => {
 
   return {
     //? Methods
-    onError: (title: string, message: string) => $q.dialog({ title, message }),
+    onError: (title: string, message: string) => $q.dialog({ title, message, dark: true }),
   };
 };
 

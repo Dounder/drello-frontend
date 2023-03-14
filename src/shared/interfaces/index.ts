@@ -1,2 +1,2 @@
 export * from './css.types';
-export * from './response-errors.interface';
+export * from './responses.interface';
