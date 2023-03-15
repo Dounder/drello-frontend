@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { QForm } from 'quasar';
+import { useNotify } from 'src/shared/composables';
 import { isValidEmail, requiredString } from 'src/shared/helpers';
-import { ref, toRefs, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useClientMutation } from '../composables';
 import { AddClient } from '../interfaces/client.interface';
 
@@ -8,40 +10,52 @@ interface Props {
   isOpen: boolean;
 }
 
+interface Emits {
+  (e: 'on:close'): void;
+}
+
+const emits = defineEmits<Emits>();
 const props = defineProps<Props>();
-const { isOpen } = toRefs(props);
+
 const { clientMutation } = useClientMutation();
+const { notify } = useNotify();
+
+const isOpen = ref(false);
+const form = ref<QForm | null>(null);
 const clientForm = ref<AddClient>({ name: '', email: '', nit: null });
+
+watch(props, () => {
+  isOpen.value = props.isOpen;
+});
 
 watch(
   () => clientMutation.isSuccess.value,
   (isSuccess: boolean) => {
-    if (isSuccess) {
-      clientMutation.reset();
-    }
+    if (isSuccess) onReset();
   }
 );
 
-const onSubmit = () => {
-  console.log(clientForm.value);
-};
-
 const onReset = () => {
+  notify({ message: `Client "${clientForm.value.name}" created` });
+  form.value?.resetValidation();
   clientForm.value = { name: '', email: '', nit: null };
+  clientMutation.reset();
+  emits('on:close');
 };
 </script>
 
 <template>
-  <q-dialog v-model="isOpen">
+  <q-dialog v-model="isOpen" persistent>
     <q-card dark class="card">
       <p class="text-h5 text-center q-pt-lg">Add Client</p>
-      <q-form @submit="onSubmit" @reset="onReset" class="full-width q-pa-md q-gutter-lg">
+      <q-form @submit="clientMutation.mutate(clientForm)" @reset="onReset" class="full-width q-pa-md q-gutter-lg">
         <q-input
           dark
           standout
           class="full-width"
           color="dark"
           v-model="clientForm.name"
+          :loading="clientMutation.isLoading.value"
           type="text"
           label="Name"
           no-error-icon
@@ -54,6 +68,7 @@ const onReset = () => {
           class="full-width"
           color="dark"
           v-model="clientForm.email"
+          :loading="clientMutation.isLoading.value"
           type="text"
           label="Email"
           no-error-icon
@@ -66,17 +81,24 @@ const onReset = () => {
           class="full-width"
           color="dark"
           v-model="clientForm.nit"
+          :loading="clientMutation.isLoading.value"
           type="text"
           label="NIT"
           no-error-icon
-          lazy-rules
-          :rules="[requiredString]"
         />
+        <q-card-actions align="right" class="q-pa-none">
+          <q-btn
+            flat
+            label="Cancel"
+            color="red"
+            class="q-mr-sm"
+            :disable="clientMutation.isLoading.value"
+            @click="emits('on:close')"
+            v-close-popup
+          />
+          <q-btn label="Create" type="submit" color="secondary" :disable="clientMutation.isLoading.value" />
+        </q-card-actions>
       </q-form>
-      <div class="q-gutter-md row justify-end q-pb-md q-px-md">
-        <q-btn label="Cancel" color="red" flat class="q-ml-sm" />
-        <q-btn label="Create" type="submit" color="secondary" />
-      </div>
     </q-card>
   </q-dialog>
 </template>

@@ -2,11 +2,11 @@
 import { PageHeader } from 'src/shared/components';
 import { ref } from 'vue';
 import { ClientCard } from '../components';
-import AddClientDialog from '../components/AddClientDialog.vue';
+import AddClient from '../components/AddClient.vue';
 import { useClient } from '../composables';
 
 const { clientsQuery } = useClient();
-const isOpen = ref<boolean>(true);
+const isOpen = ref<boolean>(false);
 </script>
 
 <template>
@@ -16,14 +16,14 @@ const isOpen = ref<boolean>(true);
     <q-separator spaced dark />
 
     <section class="client-container" v-if="!clientsQuery.isLoading.value">
-      <pre>{{ clientsQuery.data }}</pre>
       <ClientCard :client="client" v-for="client in clientsQuery.data.value" :key="client.id" />
     </section>
+
     <q-inner-loading :showing="clientsQuery.isLoading.value" dark>
       <q-spinner-gears size="50px" color="secondary" />
     </q-inner-loading>
 
-    <AddClientDialog :is-open="isOpen" />
+    <AddClient :is-open="isOpen" @on:close="isOpen = false" />
   </q-page>
 </template>
 

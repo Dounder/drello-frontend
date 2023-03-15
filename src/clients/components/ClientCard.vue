@@ -1,14 +1,4 @@
-<script setup lang="ts">
-import { toRefs } from 'vue';
-import { Client } from '../interfaces/client.interface';
-
-interface Props {
-  client: Client;
-}
-
-const props = defineProps<Props>();
-const { client } = toRefs(props);
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <q-card class="card">
@@ -16,9 +6,9 @@ const { client } = toRefs(props);
       <span class="card-date">{{ new Date().toDateString() }}</span>
     </q-card-section>
     <q-card-section>
-      <span>{{ client.name }}</span>
-      <span>{{ client.email }}</span>
-      <span>{{ client.nit }}</span>
+      <span>name</span>
+      <span>email</span>
+      <span>nit</span>
     </q-card-section>
   </q-card>
 </template>
