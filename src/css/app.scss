@@ -32,3 +32,19 @@ span {
     transform: translateY(random(5) + rem) rotate(45deg);
   }
 }
+
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ellipsis-multiline {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  // Addition lines for 2 line or multiline ellipsis
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}

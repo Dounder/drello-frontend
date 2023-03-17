@@ -58,6 +58,7 @@ const onReset = () => {
           :loading="clientMutation.isLoading.value"
           type="text"
           label="Name"
+          autofocus
           no-error-icon
           lazy-rules
           :rules="[requiredString]"
@@ -105,11 +106,6 @@ const onReset = () => {
 
 <style lang="scss" scoped>
 .card {
-  width: 20rem;
-  &-btn {
-    // width: 10rem;
-    background: $primary;
-    margin-bottom: 1rem;
-  }
+  width: 25rem;
 }
 </style>

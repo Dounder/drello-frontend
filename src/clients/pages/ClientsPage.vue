@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { PageHeader } from 'src/shared/components';
 import { ref } from 'vue';
-import { ClientCard } from '../components';
-import AddClient from '../components/AddClient.vue';
+import { AddClient, ClientList } from '../components';
 import { useClient } from '../composables';
 
 const { clientsQuery } = useClient();
@@ -16,7 +15,7 @@ const isOpen = ref<boolean>(false);
     <q-separator spaced dark />
 
     <section class="client-container" v-if="!clientsQuery.isLoading.value">
-      <ClientCard :client="client" v-for="client in clientsQuery.data.value" :key="client.id" />
+      <ClientList :clients="clientsQuery.data?.value || []" />
     </section>
 
     <q-inner-loading :showing="clientsQuery.isLoading.value" dark>
