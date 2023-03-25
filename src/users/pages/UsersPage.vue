@@ -1,4 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useHome } from 'src/shared/composables';
+
+const { store } = useHome();
+
+store.setWindowTitle('Users | Drello');
+store.setPageTitle('Users');
+</script>
 
 <template>
   <q-page padding class="flex flex-center">

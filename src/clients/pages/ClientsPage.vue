@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import { PageHeader } from 'src/shared/components';
+import { useHome } from 'src/shared/composables';
 import { ref } from 'vue';
 import { AddClient, ClientList } from '../components';
 import { useClient } from '../composables';
 
 const { clientsQuery } = useClient();
+const { store } = useHome();
+
+store.setWindowTitle('Clients | Drello');
+store.setPageTitle('Clients');
+
 const isOpen = ref<boolean>(false);
 </script>
 
