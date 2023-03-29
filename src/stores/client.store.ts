@@ -16,7 +16,26 @@ export const useClientStore = defineStore('client', () => {
 
     //! Actions
     setClients: (data: Client[]) => {
-      clients.value = data.map((client) => ({ [client.id]: client }))[0];
+      // Save client data in the store
+      clients.value = data.reduce((prev, curr) => ({ ...prev, [curr.id]: curr }), {});
+    },
+    setClient: (data: Client | null) => {
+      // Save client data in the store
+      client.value = data;
+    },
+    addClient: (data: Client) => {
+      // Save client data in the store
+      clients.value = { ...clients.value, [data.id]: data };
+    },
+    updateClient: (data: Client) => {
+      // Update client data in the store
+      clients.value = { ...clients.value, [data.id]: data };
+    },
+    deleteClient: (id: string) => {
+      // Delete client data in the store
+      clients.value = Object.keys(clients.value)
+        .filter((key) => key !== id)
+        .reduce((prev, curr) => ({ ...prev, [curr]: clients.value[curr] }), {});
     },
   };
 });

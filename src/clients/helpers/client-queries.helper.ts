@@ -17,3 +17,23 @@ export const addClientMutation = `mutation CreateClient($createClientInput: Crea
     createdAt
   }
 }`;
+
+export const updateClientMutation = `mutation UpdateClient($updateClientInput: UpdateClientInput!) {
+  updateClient(updateClientInput: $updateClientInput) {
+    id
+    name
+    nit
+    email
+    createdAt
+  }
+}`;
+
+export const deleteClientMutation = `mutation RemoveClient($removeClientId: ID!) {
+  removeClient(id: $removeClientId) {
+    id
+    name
+    nit
+    email
+    createdAt
+  }
+}`;

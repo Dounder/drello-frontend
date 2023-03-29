@@ -4,9 +4,17 @@ import { Client } from '../interfaces/client.interface';
 
 interface Props {
   client: Client;
+  isLoading: boolean;
+}
+
+interface Emits {
+  (e: 'on:update', client: Client): void;
+  (e: 'on:delete', id: string): void;
 }
 
 const props = defineProps<Props>();
+const emits = defineEmits<Emits>();
+
 const { client } = toRefs(props);
 </script>
 
@@ -19,8 +27,24 @@ const { client } = toRefs(props);
       <p class="card-text ellipsis" v-if="client.nit"><q-icon name="o_badge" class="card-icon" /> {{ client.nit }}</p>
 
       <section class="card-actions">
-        <q-btn flat round color="info" size="sm" icon="o_edit" />
-        <q-btn flat round color="red" size="sm" icon="o_delete" />
+        <q-btn
+          flat
+          round
+          color="info"
+          size="sm"
+          icon="o_edit"
+          @click="emits('on:update', client)"
+          :disable="isLoading"
+        />
+        <q-btn
+          flat
+          round
+          color="red"
+          size="sm"
+          icon="o_delete"
+          @click="emits('on:delete', client.id)"
+          :loading="isLoading"
+        />
       </section>
     </section>
   </q-card>
@@ -28,8 +52,8 @@ const { client } = toRefs(props);
 
 <style lang="scss" scoped>
 .card {
-  // width: min(20rem, 100%);
   width: 100%;
+  height: 8rem;
   background: rgba($accent, 0.5);
   border: 1px solid $accent;
   position: relative;

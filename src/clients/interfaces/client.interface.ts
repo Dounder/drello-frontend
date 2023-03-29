@@ -19,3 +19,11 @@ export interface AddClient {
   name: string;
   nit?: string | null;
 }
+
+export interface UpdateClient {
+  id: string;
+  email: string;
+  name: string;
+  nit?: string | null;
+  createdAt: Date;
+}
