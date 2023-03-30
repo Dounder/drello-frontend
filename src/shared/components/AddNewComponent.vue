@@ -1,23 +1,25 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { toRefs } from 'vue';
+
+interface Props {
+  title?: string;
+}
 
 interface Emits {
   (e: 'on:click'): void;
 }
 
 const emits = defineEmits<Emits>();
-const isOpen = ref(false);
-
-const onClick = () => {
-  isOpen.value = true;
-  emits('on:click');
-};
+const props = withDefaults(defineProps<Props>(), {
+  title: 'Add new',
+});
+const { title } = toRefs(props);
 </script>
 
 <template>
-  <q-card class="card" @click="onClick">
+  <q-card class="card" @click="emits('on:click')">
     <q-icon class="card-icon" name="o_add_circle" />
-    <p class="card-text">Add new</p>
+    <p class="card-text">{{ title }}</p>
   </q-card>
 </template>
 

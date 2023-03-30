@@ -1,5 +1,5 @@
 import { useQuasar } from 'quasar';
-import { notifyPosition } from './../interfaces/css.types';
+import { notifyPosition } from '../interfaces/types';
 
 interface Args {
   message: string;

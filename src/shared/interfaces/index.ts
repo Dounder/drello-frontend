@@ -1,2 +1,2 @@
-export * from './css.types';
+export * from './types';
 export * from './responses.interface';

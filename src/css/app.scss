@@ -48,3 +48,12 @@ span {
   -webkit-box-orient: vertical;
   white-space: normal;
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  grid-template-rows: auto;
+  gap: 1rem;
+  grid-auto-flow: dense;
+  position: relative;
+}

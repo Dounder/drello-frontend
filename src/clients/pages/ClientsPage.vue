@@ -52,8 +52,8 @@ watch(
 
 <template>
   <q-page padding class="client">
-    <section class="client-container" v-if="!clientsQuery.isLoading.value">
-      <AddNewComponent @on:click="onNew" />
+    <section class="grid" v-if="!clientsQuery.isLoading.value">
+      <AddNewComponent @on:click="onNew" title="Add new client" />
       <ClientCard
         :is-loading="deleteClientMutation.isLoading.value"
         :client="client"
@@ -77,14 +77,6 @@ watch(
   background: darken($primary, 8);
   &-title {
     margin: 0;
-  }
-  &-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-    grid-template-rows: auto;
-    gap: 1rem;
-    grid-auto-flow: dense;
-    position: relative;
   }
 }
 </style>
