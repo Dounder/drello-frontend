@@ -53,9 +53,10 @@ const useClientMutation = () => {
       store.addClient(res);
     },
     onError: (error: Error) => {
-      if (error.message.includes('client_email_IX')) return onError('Error!', 'Email has already used by other client');
+      const match = error.message.match(/\((.*?)\)/g);
+      const message = match ? `${match[0]} = ${match[1]} has already used by other client` : error.message;
 
-      onError('Unexpected Error!', 'Talk to an administrator');
+      onError('Error!', message);
     },
   });
 
@@ -67,9 +68,10 @@ const useClientMutation = () => {
       store.updateClient(res);
     },
     onError: (error: Error) => {
-      if (error.message.includes('client_email_IX')) return onError('Error!', 'Email has already used by other client');
+      const match = error.message.match(/\((.*?)\)/g);
+      const message = match ? `${match[0]} = ${match[1]} has already used by other client` : error.message;
 
-      onError('Unexpected Error!', 'Talk to an administrator');
+      onError('Error!', message);
     },
   });
 
@@ -80,9 +82,7 @@ const useClientMutation = () => {
       queryClient.removeQueries(['clients', res.id]);
       store.deleteClient(res.id);
     },
-    onError: () => {
-      onError('Unexpected Error!', 'Talk to an administrator');
-    },
+    onError: (error: Error) => onError('Error!', error.message),
   });
 
   return {

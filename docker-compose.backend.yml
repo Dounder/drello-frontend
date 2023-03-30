@@ -16,7 +16,7 @@ services:
   app:
     depends_on:
       - db
-    image: drglasdou/drello:0.0.2
+    image: drglasdou/drello:0.0.5
     container_name: drello_backend
     restart: always
     ports:
