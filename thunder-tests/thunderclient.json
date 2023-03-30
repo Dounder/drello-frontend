@@ -1,0 +1,131 @@
+[
+  {
+    "_id": "d253a7b5-7a7f-42ac-b3ca-2177ccb9ebbd",
+    "colId": "39fcba62-2e88-4c4b-9741-3012ee663808",
+    "containerId": "cc9be5e1-f779-437e-9889-abbc21fba722",
+    "name": "Sign up",
+    "url": "{{api}}/api/v1/auth/sign_up",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2023-03-30T16:41:28.197Z",
+    "modified": "2023-03-30T16:41:28.197Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"username\": \"glasdou\",\n    \"email\": \"dr.glasdou@gmail.com\",\n    \"password\": \"Aa1234!\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "set-env-var",
+        "custom": "json.token",
+        "action": "setto",
+        "value": "{{token}}"
+      }
+    ]
+  },
+  {
+    "_id": "1782effc-c0f6-4850-838e-3c0f1d0019dd",
+    "colId": "39fcba62-2e88-4c4b-9741-3012ee663808",
+    "containerId": "cc9be5e1-f779-437e-9889-abbc21fba722",
+    "name": "Sign in",
+    "url": "{{api}}/api/v1/auth/sign_in",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2023-03-30T16:41:28.198Z",
+    "modified": "2023-03-30T16:41:28.198Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"username\": \"admin\",\n    \"password\": \"Aa1234!\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "set-env-var",
+        "custom": "json.token",
+        "action": "setto",
+        "value": "{{token}}"
+      }
+    ]
+  },
+  {
+    "_id": "82660c8b-48c5-4cb6-b24c-643119439075",
+    "colId": "39fcba62-2e88-4c4b-9741-3012ee663808",
+    "containerId": "cc9be5e1-f779-437e-9889-abbc21fba722",
+    "name": "Reset password",
+    "url": "{{api}}/api/v1/auth/reset_password",
+    "method": "POST",
+    "sortNum": 30000,
+    "created": "2023-03-30T16:41:28.199Z",
+    "modified": "2023-03-30T16:41:28.199Z",
+    "headers": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"id\": \"01a73a82-6d9a-4f1c-b182-3b7d211337a2\",\n    \"token\": \"58dd28122c548f8cd5ad7ca90eee44e498d6432a30678d8f06d89b59578b7acd\",\n    \"password\": \"Aa1234!\"\n}"
+    }
+  },
+  {
+    "_id": "9a7d9940-b222-4eb9-af39-792d7663065d",
+    "colId": "39fcba62-2e88-4c4b-9741-3012ee663808",
+    "containerId": "cc9be5e1-f779-437e-9889-abbc21fba722",
+    "name": "Send reset password mail",
+    "url": "{{api}}/api/v1/auth/reset_password/{email}",
+    "method": "POST",
+    "sortNum": 40000,
+    "created": "2023-03-30T16:41:28.200Z",
+    "modified": "2023-03-30T16:41:28.200Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "email",
+        "value": "dr.glasdou@gmail.com",
+        "isDisabled": false,
+        "isPath": true
+      }
+    ],
+    "body": {
+      "type": "json",
+      "raw": ""
+    }
+  },
+  {
+    "_id": "9656cdda-500e-4e32-a2be-e1f847a29884",
+    "colId": "39fcba62-2e88-4c4b-9741-3012ee663808",
+    "containerId": "cc9be5e1-f779-437e-9889-abbc21fba722",
+    "name": "Refresh token",
+    "url": "{{api}}/api/v1/auth/refresh_token",
+    "method": "GET",
+    "sortNum": 50000,
+    "created": "2023-03-30T16:41:28.201Z",
+    "modified": "2023-03-30T16:41:28.201Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{token}}"
+    },
+    "tests": [
+      {
+        "type": "set-env-var",
+        "custom": "json.token",
+        "action": "setto",
+        "value": "{{token}}"
+      }
+    ]
+  },
+  {
+    "_id": "0679ee34-812e-4033-adf7-8b3aebd13015",
+    "colId": "39fcba62-2e88-4c4b-9741-3012ee663808",
+    "containerId": "",
+    "name": "SEED",
+    "url": "{{api}}/api/v1/seed",
+    "method": "GET",
+    "sortNum": 60000,
+    "created": "2023-03-30T16:41:28.202Z",
+    "modified": "2023-03-30T16:41:28.202Z",
+    "headers": []
+  }
+]

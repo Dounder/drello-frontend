@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "07499075-5b3f-4320-b498-36e4b6f3ace5",
+    "name": "[ DEV ] - local",
+    "default": true,
+    "sortNum": 10000,
+    "created": "2023-03-30T16:41:34.616Z",
+    "modified": "2023-03-30T16:41:34.616Z",
+    "data": [
+      {
+        "name": "api",
+        "value": "localhost:3000"
+      },
+      {
+        "name": "token",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM3NDRmYjQ1LWM5OWYtNDVmNy04YjdlLWQ1NDg2N2ZjNjU0MiIsImlhdCI6MTY4MDE5NDUyNywiZXhwIjoxNjgwMjA4OTI3fQ.a4Galw6d-OfCX_-KF2M0gDdz4ghr_sKyZotT9p0lKIQ"
+      }
+    ]
+  }
+]
