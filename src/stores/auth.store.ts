@@ -18,6 +18,7 @@ export const useAuthStore = defineStore('auth', () => {
     getError: computed(() => authData.value.error),
     getErrorMessage: computed(() => `[${authData.value.error?.statusCode}] ${authData.value.error?.message}`),
     isAuthenticated: computed(() => !!authData.value.user),
+    getRoles: computed(() => authData.value.user?.roles ?? []),
 
     //! Actions
     setAuthData: (auhtData: AuthData) => {

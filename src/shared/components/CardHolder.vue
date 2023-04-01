@@ -3,60 +3,55 @@ import { toRefs } from 'vue';
 
 interface Props {
   isLoading: boolean;
-  onUpdate?: () => void;
-  onDelete?: () => void;
+  update?: boolean;
+  remove?: boolean;
 }
 
-const props = defineProps<Props>();
-const { isLoading, onUpdate, onDelete } = toRefs(props);
+interface Emits {
+  (e: 'on:update'): void;
+  (e: 'on:delete'): void;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  isLoading: false,
+  update: true,
+  remove: true,
+});
+
+const emits = defineEmits<Emits>();
+const { isLoading } = toRefs(props);
 </script>
 
 <template>
   <q-card class="card">
-    <slot name="body" />
-    <section class="card-actions">
-      <q-btn v-if="onUpdate" flat round color="info" size="sm" icon="o_edit" @click="onUpdate" :disable="isLoading" />
-      <q-btn v-if="onDelete" flat round color="red" size="sm" icon="o_delete" @click="onDelete" :loading="isLoading" />
+    <section class="card-body">
+      <!-- This is the slot that will be used in the UserCard component -->
+      <slot name="body" />
+      <!-- This section is for the actions -->
+      <section class="card-actions">
+        <q-btn
+          v-if="update"
+          flat
+          round
+          color="info"
+          size="sm"
+          icon="o_edit"
+          @click="emits('on:update')"
+          :disable="isLoading"
+        />
+        <q-btn
+          v-if="remove"
+          flat
+          round
+          color="red"
+          size="sm"
+          icon="o_delete"
+          @click="emits('on:delete')"
+          :loading="isLoading"
+        />
+      </section>
     </section>
   </q-card>
 </template>
 
-<style lang="scss" scoped>
-.card {
-  width: 100%;
-  height: 8rem;
-  background: rgba($accent, 0.5);
-  border: 1px solid $accent;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-  transition: all 0.5s ease;
-  &:hover {
-    background: $accent;
-    transition: all 0.5s ease;
-    cursor: pointer;
-  }
-  &-body {
-    width: 100%;
-    padding: 1rem;
-  }
-  &-text {
-    margin: 0.3rem 0;
-    line-height: 1.5;
-  }
-  &-icon {
-    font-size: 1.2rem;
-    margin-right: 0.5rem;
-    color: $info;
-  }
-  &-actions {
-    position: absolute;
-    top: 0.2rem;
-    right: 0.2rem;
-    display: flex;
-    gap: 0.2rem;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

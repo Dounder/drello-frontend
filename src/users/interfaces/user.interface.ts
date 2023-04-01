@@ -16,7 +16,7 @@ export interface User {
 export interface AddUser {
   email: string;
   password: string;
-  roles?: UserRoles[] | null;
+  roles: UserRoles[];
   username: string;
 }
 
@@ -24,9 +24,9 @@ export interface UpdateUser {
   createdAt: Date;
   email: string;
   id: string;
-  password: string;
-  roles?: UserRoles[] | null;
+  roles: UserRoles[];
   username: string;
+  password: string;
 }
 
 export enum UserRoles {

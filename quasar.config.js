@@ -30,7 +30,7 @@ module.exports = configure(function (/* ctx */) {
     boot: ['api', 'vue-query'],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
-    css: ['app.scss'],
+    css: ['app.scss', 'card.scss'],
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [

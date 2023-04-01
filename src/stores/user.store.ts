@@ -1,24 +1,25 @@
 import { defineStore } from 'pinia';
 import { UsersList } from 'src/users/interfaces';
 import { computed, ref } from 'vue';
-import { User } from './../auth/interfaces/auth.interface';
-import { UserRoles } from './../users/interfaces/user.interface';
+import { User, UserRoles } from './../users/interfaces/user.interface';
 
-export const useUserStore = defineStore('user', () => {
+export const useUserStore = defineStore('users', () => {
   const users = ref<UsersList>({});
   const user = ref<User | null>(null);
-  const UserDialog = ref<boolean>(false);
+  const userDialog = ref<boolean>(false);
 
   return {
     //? Props
     users,
     user,
-    UserDialog,
+    userDialog,
 
     //* Getters
     getUserByRole: computed(
       () => (role: UserRoles) => Object.values(users.value).filter((user) => user.roles.includes(role))
     ),
+    getUsers: computed(() => users.value),
+    isDialogOpen: computed(() => userDialog.value),
 
     //! Actions
     setUsers: (data: User[]) => {
@@ -31,11 +32,11 @@ export const useUserStore = defineStore('user', () => {
     },
     addUser: (data: User) => {
       // Save user data in the store
-      users.value = { ...users.value, [data.id]: data };
+      users.value = { [data.id]: data, ...users.value };
     },
     updateUser: (data: User) => {
       // Update user data in the store
-      users.value = { ...users.value, [data.id]: data };
+      users.value = { [data.id]: data, ...users.value };
     },
     deleteUser: (id: string) => {
       // Delete user data in the store
@@ -44,7 +45,7 @@ export const useUserStore = defineStore('user', () => {
         .reduce((prev, curr) => ({ ...prev, [curr]: users.value[curr] }), {});
     },
     setUserDialog: (data: boolean) => {
-      UserDialog.value = data;
+      userDialog.value = data;
     },
   };
 });

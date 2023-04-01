@@ -26,7 +26,7 @@ const { title } = toRefs(props);
 <style lang="scss" scoped>
 .card {
   width: 100%;
-  height: 8rem;
+  height: 100%;
   background: rgba($secondary, 0.6);
   border: 2px dashed $secondary;
   display: flex;

@@ -38,7 +38,7 @@ watch(props, () => {
     :position="position"
     @update:model-value="emit('update:model-value', $event)"
   >
-    <q-card dark class="card">
+    <q-card dark class="dialog">
       <p class="text-h5 text-center q-pt-lg">{{ title }}</p>
       <q-form
         @submit="emit('on:submit', form)"
@@ -66,7 +66,7 @@ watch(props, () => {
 </template>
 
 <style lang="scss" scoped>
-.card {
-  width: 25rem;
+.dialog {
+  width: 30rem;
 }
 </style>

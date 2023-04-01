@@ -52,8 +52,23 @@ span {
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-  grid-template-rows: auto;
+  grid-template-rows: repeat(auto-fill, 10rem);
   gap: 1rem;
   grid-auto-flow: dense;
-  position: relative;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 1rem;
+    &-track {
+      background: rgba(0, 0, 0, 0.1);
+    }
+    &-thumb {
+      border-radius: 1rem;
+      border: 3px solid darken($primary, 8);
+      background: rgba(#fff, 0.3);
+      &:hover {
+        background: rgba(#fff, 0.5);
+      }
+    }
+  }
 }

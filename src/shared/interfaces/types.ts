@@ -14,3 +14,17 @@ export type notifyPosition =
   | 'left'
   | 'right'
   | 'center';
+
+export type InputTypes =
+  | 'number'
+  | 'text'
+  | 'date'
+  | 'email'
+  | 'file'
+  | 'password'
+  | 'search'
+  | 'tel'
+  | 'time'
+  | 'url'
+  | 'textarea'
+  | undefined;

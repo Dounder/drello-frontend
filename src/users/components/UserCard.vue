@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { CardHolder } from 'src/shared/components';
+import { useNotify } from 'src/shared/composables';
+import { computed, watch } from 'vue';
+import { useUserMutation } from '../composables';
 import { User } from '../interfaces';
 
 interface Props {
@@ -7,59 +10,44 @@ interface Props {
 }
 
 interface Emits {
-  (e: 'on:update'): void;
-  (e: 'on:delete'): void;
+  (e: 'on:update', user: User): void;
 }
 
-const onUpdate = () => {
-  console.log('onUpdate');
-};
+const { deleteUserMutation, store } = useUserMutation();
+const { notify, confirm } = useNotify();
+const props = defineProps<Props>();
+const emits = defineEmits<Emits>();
+const roles = computed(() => props.user.roles?.join(', ') ?? '');
 
 const onDelete = () => {
-  console.log('onDelete');
+  confirm({ message: `Are you sure you want to delete "${props.user.username}"?` }).onOk(() =>
+    deleteUserMutation.mutate(props.user.id)
+  );
 };
+
+watch(
+  () => deleteUserMutation.isSuccess.value,
+  (isSuccess: boolean) => {
+    if (isSuccess) {
+      store.deleteUser(props.user.id);
+      notify({ message: `User ${props.user.username} deleted`, type: 'warning' });
+      deleteUserMutation.reset();
+    }
+  }
+);
 </script>
 
 <template>
-  <CardHolder :on-update="onUpdate" :on-delete="onDelete" :is-loading="false"> </CardHolder>
+  <CardHolder @on:update="emits('on:update', user)" @on:delete="onDelete">
+    <template v-slot:body>
+      <p class="card-text ellipsis">
+        <q-icon name="o_today" class="card-icon" /> {{ new Date(user.createdAt).toDateString() }}
+      </p>
+      <p class="card-text ellipsis"><q-icon name="o_person" class="card-icon" />{{ user.username }}</p>
+      <p class="card-text ellipsis"><q-icon name="o_alternate_email" class="card-icon" />{{ user.email }}</p>
+      <p class="card-text ellipsis"><q-icon name="o_badge" class="card-icon" />{{ roles }}</p>
+    </template>
+  </CardHolder>
 </template>
 
-<style lang="scss" scoped>
-.card {
-  width: 100%;
-  height: 8rem;
-  background: rgba($accent, 0.5);
-  border: 1px solid $accent;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-  transition: all 0.5s ease;
-  &:hover {
-    background: $accent;
-    transition: all 0.5s ease;
-    cursor: pointer;
-  }
-  &-body {
-    width: 100%;
-    padding: 1rem;
-  }
-  &-text {
-    margin: 0.3rem 0;
-    line-height: 1.5;
-  }
-  &-icon {
-    font-size: 1.2rem;
-    margin-right: 0.5rem;
-    color: $info;
-  }
-  &-actions {
-    position: absolute;
-    top: 0.2rem;
-    right: 0.2rem;
-    display: flex;
-    gap: 0.2rem;
-  }
-}
-</style>
+<style lang="scss" scoped></style>
