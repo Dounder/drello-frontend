@@ -1,21 +1,41 @@
 <script setup lang="ts">
-import { toRefs } from 'vue';
+import { useNotify } from 'src/shared/composables';
+import { toRefs, watch } from 'vue';
+import { useClientMutation } from '../composables';
 import { Client } from '../interfaces/client.interface';
 
 interface Props {
   client: Client;
-  isLoading: boolean;
 }
 
 interface Emits {
   (e: 'on:update', client: Client): void;
-  (e: 'on:delete', id: string): void;
+  (e: 'on:delete'): void;
 }
 
+const { deleteClientMutation, store } = useClientMutation();
+const { notify, confirm } = useNotify();
 const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
 
 const { client } = toRefs(props);
+
+const onDelete = () =>
+  confirm({ message: `Are you sure you want to delete "${client.value.name}"?` }).onOk(() =>
+    deleteClientMutation.mutate(client.value.id)
+  );
+
+watch(
+  () => deleteClientMutation.isSuccess.value,
+  (isSuccess: boolean) => {
+    if (isSuccess) {
+      store.deleteClient(client.value.id);
+      notify({ message: `Client ${client.value.name} deleted`, type: 'warning' });
+      deleteClientMutation.reset();
+      emits('on:delete');
+    }
+  }
+);
 </script>
 
 <template>
@@ -34,7 +54,7 @@ const { client } = toRefs(props);
           size="sm"
           icon="o_edit"
           @click="emits('on:update', client)"
-          :disable="isLoading"
+          :disable="deleteClientMutation.isLoading.value"
         />
         <q-btn
           flat
@@ -42,50 +62,12 @@ const { client } = toRefs(props);
           color="red"
           size="sm"
           icon="o_delete"
-          @click="emits('on:delete', client.id)"
-          :loading="isLoading"
+          @click="onDelete"
+          :loading="deleteClientMutation.isLoading.value"
         />
       </section>
     </section>
   </q-card>
 </template>
 
-<style lang="scss" scoped>
-.card {
-  width: 100%;
-  height: 8rem;
-  background: rgba($accent, 0.5);
-  border: 1px solid $accent;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-  transition: all 0.5s ease;
-  &:hover {
-    background: $accent;
-    transition: all 0.5s ease;
-    cursor: pointer;
-  }
-  &-body {
-    width: 100%;
-    padding: 1rem;
-  }
-  &-text {
-    margin: 0.3rem 0;
-    line-height: 1.5;
-  }
-  &-icon {
-    font-size: 1.2rem;
-    margin-right: 0.5rem;
-    color: $info;
-  }
-  &-actions {
-    position: absolute;
-    top: 0.2rem;
-    right: 0.2rem;
-    display: flex;
-    gap: 0.2rem;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

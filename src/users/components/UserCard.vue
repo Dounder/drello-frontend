@@ -11,6 +11,7 @@ interface Props {
 
 interface Emits {
   (e: 'on:update', user: User): void;
+  (e: 'on:delete'): void;
 }
 
 const { deleteUserMutation, store } = useUserMutation();
@@ -32,6 +33,7 @@ watch(
       store.deleteUser(props.user.id);
       notify({ message: `User ${props.user.username} deleted`, type: 'warning' });
       deleteUserMutation.reset();
+      emits('on:delete');
     }
   }
 );

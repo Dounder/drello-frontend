@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import { AddNewComponent } from 'src/shared/components';
-import { useHome, useNotify } from 'src/shared/composables';
-import { ref, watch } from 'vue';
+import { useHome } from 'src/shared/composables';
+import { ref, watchEffect } from 'vue';
 import { ClientCard, ClientDialog } from '../components';
-import { useClient, useClientMutation } from '../composables';
+import { useClient } from '../composables';
 import { Client } from '../interfaces/client.interface';
 
 const { clientsQuery, clients, store: clientStore } = useClient();
-const { deleteClientMutation } = useClientMutation();
-const { notify } = useNotify();
 
 useHome().store.setWindowTitle('Clients | Drello'); // Set window title
 useHome().store.setPageTitle('Clients'); // Set page title
 
 const isOpen = ref<boolean>(false); // Dialog open state
 const action = ref<'create' | 'update'>('create'); // Dialog action
+const isVisible = ref(false);
+const grid = ref<HTMLElement | null>(null);
 
 // Open dialog to create new client
 const onNew = () => {
@@ -30,24 +30,13 @@ const onUpdate = (client: Client) => {
   clientStore.setClient({ ...client });
 };
 
-// Delete client
-const onDelete = (id: string) => {
-  notify({ message: 'Client deleted', type: 'positive' }); // Notify success
-
-  clientStore.setClient(null);
-  clientStore.deleteClient(id);
-  deleteClientMutation.mutate(id);
-};
-
-watch(
-  () => deleteClientMutation.isSuccess.value, // Watch delete mutation
-  (isSuccess: boolean) => {
-    if (isSuccess) {
-      clientsQuery.refetch(); // Refetch clients
-      deleteClientMutation.reset(); // Reset mutation
-    }
-  }
-);
+watchEffect(() => {
+  if (grid.value)
+    grid.value.addEventListener('scroll', () => {
+      const { scrollTop } = grid.value as HTMLElement;
+      isVisible.value = scrollTop > 150;
+    });
+});
 </script>
 
 <template>
@@ -55,12 +44,11 @@ watch(
     <section class="grid" v-if="!clientsQuery.isLoading.value">
       <AddNewComponent @on:click="onNew" title="Add new client" />
       <ClientCard
-        :is-loading="deleteClientMutation.isLoading.value"
         :client="client"
         v-for="client in clients"
         :key="client.id"
         @on:update="onUpdate"
-        @on:delete="onDelete"
+        @on:delete="clientsQuery.refetch()"
       />
     </section>
 
@@ -69,6 +57,7 @@ watch(
     </q-inner-loading>
 
     <ClientDialog :action="action" :is-open="isOpen" @on:close="isOpen = false" />
+    <FabComponent v-if="isVisible" title="Add new user" @on:click="onNew" />
   </q-page>
 </template>
 

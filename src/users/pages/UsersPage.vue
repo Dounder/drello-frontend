@@ -39,7 +39,13 @@ watchEffect(() => {
   <q-page padding>
     <section ref="grid" class="grid" v-if="!usersQuery.isLoading.value">
       <AddNewComponent @on:click="onNew" title="Add new user" />
-      <UserCard @on:update="onUpdate" :is-loading="false" :user="user" v-for="user in users" :key="user.id" />
+      <UserCard
+        @on:delete="usersQuery.refetch()"
+        @on:update="onUpdate"
+        :user="user"
+        v-for="user in users"
+        :key="user.id"
+      />
     </section>
 
     <q-inner-loading :showing="usersQuery.isLoading.value" dark>
