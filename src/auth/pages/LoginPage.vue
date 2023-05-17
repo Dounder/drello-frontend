@@ -12,7 +12,7 @@ const { getError, getErrorMessage } = useAuth();
 const { loginMutation } = useAuthMutation();
 const router = useRouter();
 
-const loginForm = ref({ username: 'admin', password: 'Aa1234!' });
+const loginForm = ref({ username: '', password: '' });
 const isPwd = ref<boolean>(true);
 const form = ref<QForm>();
 
@@ -53,6 +53,7 @@ watch(
           no-error-icon
           lazy-rules
           :rules="[requiredString]"
+          :disable="loginMutation.isLoading.value"
         />
         <q-input
           dark
@@ -65,6 +66,7 @@ watch(
           no-error-icon
           lazy-rules
           :rules="[requiredString]"
+          :disable="loginMutation.isLoading.value"
         >
           <template v-slot:append>
             <q-btn
@@ -77,7 +79,15 @@ watch(
             />
           </template>
         </q-input>
-        <q-btn rounded flat class="card-form__btn" text-color="white" label="log in" type="submit" />
+        <q-btn
+          rounded
+          flat
+          class="card-form__btn"
+          text-color="white"
+          label="log in"
+          type="submit"
+          :loading="loginMutation.isLoading.value"
+        />
       </q-form>
       <article class="card-error" :class="getError ? 'active' : 'inactive'">
         {{ getErrorMessage }}

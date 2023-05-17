@@ -2,7 +2,7 @@
 import { toRefs } from 'vue';
 
 interface Props {
-  isLoading: boolean;
+  isLoading?: boolean;
   update?: boolean;
   remove?: boolean;
 }
