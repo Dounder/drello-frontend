@@ -10,7 +10,6 @@ const homeRoutes: RouteRecordRaw[] = [
     children: [
       { path: '', name: 'home-page', redirect: { name: 'projects-page' } },
       { path: 'projects', name: 'projects-page', component: () => import('src/home/pages/HomePage.vue') },
-      { path: 'clients', name: 'clients-page', component: () => import('src/clients/pages/ClientsPage.vue') },
       { path: 'users', name: 'users-page', component: () => import('src/users/pages/UsersPage.vue') },
     ],
   },
