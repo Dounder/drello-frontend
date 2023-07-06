@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15.2
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      DB_USERNAME: 'postgres'
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_DB: 'drello'
+    container_name: drello_db
+    volumes:
+      - pg:/var/lib/postgresql/data
+  app:
+    depends_on:
+      - db
+    image: drglasdou/drello:miko
+    container_name: drello_api
+    restart: always
+    ports:
+      - '3000:3000'
+    environment:
+      DB_PASSWORD: 'password'
+      DB_NAME: 'drello'
+      DB_PORT: '5432'
+      DB_HOST: drello_db
+      DB_USERNAME: 'postgres'
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_DB: 'drello'
+      PGDATA: '/var/lib/postgresql/data/pgdata'
+      PORT: '3000'
+      STATE: 'dev'
+      JWT_SECRET: 'VQZ8cmf8naf_cwd.ukb'
+
+volumes:
+  pg:

@@ -1,5 +1,8 @@
 import axios from 'axios';
+import { useConfig } from 'src/shared/composables';
 
-const api = axios.create({ baseURL: process.env.API_URL });
+const { API_URL } = useConfig();
+
+const api = axios.create({ baseURL: API_URL });
 
 export { api };

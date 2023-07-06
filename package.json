@@ -1,8 +1,8 @@
 {
-  "name": "vue-quasar-template",
+  "name": "drello",
   "version": "0.0.1",
-  "description": "A Quasar Project",
-  "productName": "Quasar App",
+  "description": "Drello Project",
+  "productName": "Drello App",
   "author": "dcode <dr.glasdou@gmail.com>",
   "private": true,
   "scripts": {
@@ -14,6 +14,7 @@
     "@quasar/extras": "^1.0.0",
     "@tanstack/vue-query": "^4.19.1",
     "axios": "^0.21.1",
+    "crypto-js": "^4.1.1",
     "dotenv": "^16.0.3",
     "pinia": "^2.0.11",
     "quasar": "^2.6.0",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "@quasar/app-vite": "^1.0.0",
+    "@types/crypto-js": "^4.1.1",
     "@types/node": "^12.20.21",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",

@@ -1,10 +1,5 @@
 import { route } from 'quasar/wrappers';
-import {
-  createMemoryHistory,
-  createRouter,
-  createWebHashHistory,
-  createWebHistory,
-} from 'vue-router';
+import { createMemoryHistory, createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
 
 import { homeRoutes } from 'src/home/routes/home.routes';
 import { authRoutes } from 'src/auth/routes/auth.routes';
@@ -30,10 +25,7 @@ export default route(function (/* { store, ssrContext } */) {
     routes: [
       ...homeRoutes,
       ...authRoutes,
-      {
-        path: '/:catchAll(.*)*',
-        component: () => import('src/shared/pages/ErrorNotFound.vue'),
-      },
+      { path: '/:catchAll(.*)*', component: () => import('src/shared/pages/ErrorNotFound.vue') },
     ],
 
     // Leave this as is and make changes in quasar.conf.js instead!
