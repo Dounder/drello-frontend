@@ -12,7 +12,7 @@ const loginForm = ref<QForm | null>(null);
 const showPwd = ref(false);
 const { login, vertical } = useAuth();
 const { loginMutation } = useAuthMutation();
-const { saveCredentials } = useCookies();
+const { saveCredentials, saveUserData } = useCookies();
 
 const onReset = () => {
   if (!loginForm.value) return;
@@ -37,6 +37,7 @@ watch(
   (success) => {
     if (success) {
       saveCredentials(login.username, login.password);
+      if (loginMutation.data.value) saveUserData(loginMutation.data.value);
       onReset();
       replace({ name: 'home-page' });
     }

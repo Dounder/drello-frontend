@@ -1,16 +1,29 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
+import { AuthResponse, User } from '../interfaces/auth.interface';
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref(null);
+  const user = ref<User | null>(null);
+  const token = ref<string | null>(null);
 
   return {
     //? Props
     user,
+    token,
 
     //* Getters
-    isLoggedIn: computed(() => !!user.value),
+    isLoggedIn: computed(() => !!token.value),
 
     //! Actions
+    setCredentials: (creds: AuthResponse | undefined) => {
+      if (creds === undefined) {
+        user.value = null;
+        token.value = null;
+        return;
+      }
+
+      user.value = creds.user;
+      token.value = creds.token;
+    },
   };
 });

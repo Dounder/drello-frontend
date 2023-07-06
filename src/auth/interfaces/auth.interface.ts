@@ -10,7 +10,6 @@ export interface User {
   deletedAt: null;
   username: string;
   email: string;
-  password: string;
   roles: UserRoles[];
 }
 

@@ -5,6 +5,7 @@ import { api } from 'src/boot/axios';
 import { AuthResponse } from '../interfaces/auth.interface';
 import { ApiError } from 'src/shared/interfaces/api-response.interface';
 import { ApiException } from 'src/shared/helpers/custom-error.helper';
+import { useAuthStore } from '../store/auth.store';
 
 interface Args {
   username: string;
@@ -26,12 +27,17 @@ const login = async (args: Args): Promise<AuthResponse> => {
 
 const useAuthMutation = () => {
   const queryClient = useQueryClient();
+  const { setCredentials } = useAuthStore();
 
   const loginMutation = useMutation({
     mutationFn: (loginForm: Args) => login(loginForm),
     onSuccess: (data: AuthResponse) => {
       queryClient.invalidateQueries({ queryKey: ['auth', data.user.id], exact: false });
       queryClient.setQueryData(['auth', data.user.id], data);
+
+      setCredentials(data);
+
+      return data;
     },
     onError: (apiError: ApiError) => {
       return apiError;

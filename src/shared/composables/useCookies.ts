@@ -1,6 +1,7 @@
 import CryptoJS from 'crypto-js';
 import useConfig from './useConfig';
 import { useQuasar } from 'quasar';
+import { AuthResponse, User } from 'src/auth/interfaces/auth.interface';
 
 const { SECRET_KEY } = useConfig();
 
@@ -41,6 +42,12 @@ const useCookies = () => {
         return { decryptedUsername, decryptedPassword };
       }
     },
+    saveUserData: (data: AuthResponse) => {
+      cookies.set('user', JSON.stringify(data.user));
+      cookies.set('token', data.token);
+    },
+    loadToken: (): string | null => cookies.get('token'),
+    loadUser: (): User | null => cookies.get('user'),
   };
 };
 
