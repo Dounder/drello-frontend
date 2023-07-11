@@ -1,0 +1,8 @@
+.active-link {
+  background-color: rgba($primary, 0.1);
+  border-color: $primary;
+  &:hover {
+    background-color: rgba($primary, 0.3);
+    border-color: $primary;
+  }
+}

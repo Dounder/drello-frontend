@@ -1,8 +1,8 @@
 import { route } from 'quasar/wrappers';
 import { createMemoryHistory, createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
 
-import { homeRoutes } from 'src/home/routes/home.routes';
 import { authRoutes } from 'src/auth/routes/auth.routes';
+import { boardsRoutes } from 'src/boards/routes/boards.routes';
 
 /*
  * If not building with SSR mode, you can
@@ -23,7 +23,7 @@ export default route(function (/* { store, ssrContext } */) {
   const Router = createRouter({
     scrollBehavior: () => ({ left: 0, top: 0 }),
     routes: [
-      ...homeRoutes,
+      ...boardsRoutes,
       ...authRoutes,
       { path: '/:catchAll(.*)*', component: () => import('src/shared/pages/ErrorNotFound.vue') },
     ],

@@ -39,7 +39,7 @@ watch(
       saveCredentials(login.username, login.password);
       if (loginMutation.data.value) saveUserData(loginMutation.data.value);
       onReset();
-      replace({ name: 'home-page' });
+      replace({ name: 'boards-page' });
     }
   }
 );
