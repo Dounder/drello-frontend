@@ -12,7 +12,7 @@ defineProps<Props>();
   <section class="container">
     <q-scroll-area :style="{ height: `calc(${height} - 2rem)` }" class="full-width">
       <section class="gallery">
-        <BoardCard v-for="index in 100" :key="index" />
+        <BoardCard v-for="index in 1" :key="index" />
       </section>
     </q-scroll-area>
   </section>

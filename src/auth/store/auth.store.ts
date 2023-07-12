@@ -25,5 +25,9 @@ export const useAuthStore = defineStore('auth', () => {
       user.value = creds.user;
       token.value = creds.token;
     },
+    logout: () => {
+      user.value = null;
+      token.value = null;
+    },
   };
 });

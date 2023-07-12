@@ -29,7 +29,7 @@ const useCookies = () => {
     saveCredentials: (username: string, password: string) => {
       const { encryptedUsername, encryptedPassword } = encryptCredentials(username, password);
 
-      cookies.set('login', JSON.stringify({ user: encryptedUsername, pass: encryptedPassword }));
+      cookies.set('login', JSON.stringify({ user: encryptedUsername, pass: encryptedPassword }), { expires: 365 });
     },
     loadCredentials: () => {
       const loginData = cookies.get('login') as { user: string; pass: string };
@@ -43,11 +43,16 @@ const useCookies = () => {
       }
     },
     saveUserData: (data: AuthResponse) => {
-      cookies.set('user', JSON.stringify(data.user));
-      cookies.set('token', data.token);
+      cookies.set('user', JSON.stringify(data.user), { expires: 365 });
+      cookies.set('token', data.token, { expires: 365 });
     },
     loadToken: (): string | null => cookies.get('token'),
     loadUser: (): User | null => cookies.get('user'),
+    removeCredentials: () => {
+      cookies.remove('login');
+      cookies.remove('user');
+      cookies.remove('token');
+    },
   };
 };
 

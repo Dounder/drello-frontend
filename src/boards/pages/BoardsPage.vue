@@ -27,7 +27,7 @@ onBeforeUnmount(() => {
 
 <template>
   <q-page :style-fn="getOffset">
-    <BoardPageMenu v-if="showMenu" :offset="page.offset" :min-height="page.minHeight" />
+    <BoardPageMenu v-if="showMenu" :offset="page.offset" :is-drawer="false" />
     <BoardPageGallery :height="page.minHeight" />
   </q-page>
 </template>
