@@ -1,34 +1,31 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, reactive } from 'vue';
+import { useWindow } from 'src/shared/composables';
+import { reactive } from 'vue';
 import { BoardPageGallery, BoardPageMenu } from '../component';
-import { useBoardMenu } from '../composables';
+import { useBoards } from '../composables';
 
-const { showMenu, breakpoint } = useBoardMenu();
+const { responsive } = useWindow();
+const { boardsQuery } = useBoards();
 const page = reactive({ offset: 0, minHeight: '100vh' });
-
-const setWindowSize = () => {
-  showMenu.value = window.innerWidth >= breakpoint;
-};
 
 const getOffset = (offset: number) => {
   page.offset = offset;
   page.minHeight = offset ? `calc(100vh - ${offset}px)` : '100vh';
   return { minHeight: page.minHeight };
 };
-
-onMounted(() => {
-  window.addEventListener('resize', setWindowSize);
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', setWindowSize);
-});
 </script>
 
 <template>
   <q-page :style-fn="getOffset">
-    <BoardPageMenu v-if="showMenu" :offset="page.offset" :is-drawer="false" />
-    <BoardPageGallery :height="page.minHeight" />
+    <BoardPageMenu v-if="!responsive" :offset="page.offset" :is-drawer="false" />
+    <q-inner-loading :showing="boardsQuery.isLoading.value">
+      <q-spinner-gears size="50px" color="primary" />
+    </q-inner-loading>
+    <BoardPageGallery
+      v-if="!boardsQuery.isLoading.value"
+      :height="page.minHeight"
+      :boards="boardsQuery.data.value || []"
+    />
   </q-page>
 </template>
 

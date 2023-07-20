@@ -6,5 +6,4 @@ interface BoardMenuOption {
 
 export const boardMenuOptions: BoardMenuOption[] = [
   { label: 'Boards', icon: 'developer_board', routeName: 'boards-page' },
-  { label: 'Templates', icon: 'view_quilt', routeName: 'templates-page' },
 ];

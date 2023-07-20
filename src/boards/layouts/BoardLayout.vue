@@ -1,28 +1,18 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted } from 'vue';
-import { useBoardMenu } from '../composables';
+import { ref } from 'vue';
+
+import { useWindow } from 'src/shared/composables';
 import { AccountMenu, BoardPageMenu } from '../component';
 
-const { drawerOpen, showDrawer, breakpoint, toggleDrawer } = useBoardMenu();
-
-const setWindowSize = () => {
-  showDrawer.value = window.innerWidth < breakpoint;
-};
-
-onMounted(() => {
-  window.addEventListener('resize', setWindowSize);
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', setWindowSize);
-});
+const { responsive, breakpoint } = useWindow();
+const drawer = ref(false);
 </script>
 
 <template>
   <q-layout view="hHh lpR fFf">
     <q-header elevated class="bg-primary text-white">
       <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="toggleDrawer" v-if="showDrawer" />
+        <q-btn dense flat round icon="menu" @click="drawer = !drawer" v-if="responsive" />
         <q-toolbar-title translate="no">Drello</q-toolbar-title>
         <q-space />
         <q-btn flat round color="white" padding="5px 5px">
@@ -33,8 +23,8 @@ onBeforeUnmount(() => {
       </q-toolbar>
     </q-header>
 
-    <q-drawer :breakpoint="breakpoint" v-model="drawerOpen" side="left" v-if="showDrawer" bordered>
-      <BoardPageMenu :is-drawer="showDrawer" />
+    <q-drawer :breakpoint="breakpoint" v-model="drawer" side="left" v-if="responsive" bordered>
+      <BoardPageMenu :is-drawer="responsive" />
     </q-drawer>
 
     <q-page-container>

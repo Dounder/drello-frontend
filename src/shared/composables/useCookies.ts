@@ -46,8 +46,8 @@ const useCookies = () => {
       cookies.set('user', JSON.stringify(data.user), { expires: 365 });
       cookies.set('token', data.token, { expires: 365 });
     },
-    loadToken: (): string | null => cookies.get('token'),
-    loadUser: (): User | null => cookies.get('user'),
+    getToken: (): string | null => cookies.get('token'),
+    getUser: (): User | null => cookies.get('user'),
     removeCredentials: () => {
       cookies.remove('login');
       cookies.remove('user');

@@ -1,7 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+interface Props {
+  title: string;
+}
+
+defineProps<Props>();
+</script>
 
 <template>
-  <article class="card flex flex-center">card</article>
+  <article class="card flex flex-center">{{ title }}</article>
 </template>
 
 <style lang="scss" scoped>

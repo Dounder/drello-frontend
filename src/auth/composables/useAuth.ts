@@ -1,6 +1,6 @@
+import { useCookies } from 'src/shared/composables';
 import { onMounted, onUnmounted, reactive, ref } from 'vue';
 import { useAuthStore } from '../store/auth.store';
-import { useCookies } from 'src/shared/composables';
 
 const useAuth = () => {
   const store = useAuthStore();

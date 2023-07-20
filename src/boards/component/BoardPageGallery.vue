@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { BoardCard } from '.';
+import { BoardCard, GalleryHeader } from '.';
+import { Board } from '../interfaces/board.interface';
 
 interface Props {
   height: string;
+  boards: Board[];
 }
 
 defineProps<Props>();
@@ -11,8 +13,9 @@ defineProps<Props>();
 <template>
   <section class="container">
     <q-scroll-area :style="{ height: `calc(${height} - 2rem)` }" class="full-width">
+      <GalleryHeader />
       <section class="gallery">
-        <BoardCard v-for="index in 1" :key="index" />
+        <BoardCard v-for="{ id, title } in boards" :key="id" :title="title" />
       </section>
     </q-scroll-area>
   </section>
@@ -31,19 +34,14 @@ defineProps<Props>();
     grid-gap: 1rem;
     overflow: hidden auto;
     padding-right: 1rem;
-  }
-
-  ::-webkit-scrollbar {
-    width: 8px;
-    &-track {
-      background: #f1f1f1;
+    &-header {
+      position: sticky;
+      top: 0;
+      background: white;
+      padding: 0 1rem 1rem 0;
     }
-    &-thumb {
-      background: #888;
-      border-radius: 4px;
-      &:hover {
-        background: #555;
-      }
+    &-menu {
+      width: 20rem;
     }
   }
 }
