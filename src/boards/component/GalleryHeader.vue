@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { QInput } from 'quasar';
-import { useWindow } from 'src/shared/composables';
+import { useWindow, useNotify } from 'src/shared/composables';
 import { computed, ref, watch } from 'vue';
 import { useBoardMutation } from '../composables';
 import { requiredField } from 'src/shared/helpers';
 
+const { predefined } = useNotify();
 const { windowSize } = useWindow();
 const { boardMutation } = useBoardMutation();
 const isMobile = computed(() => windowSize.value < 600);
@@ -32,6 +33,7 @@ const onAdd = async () => {
 watch(
   () => boardMutation.isSuccess.value,
   () => {
+    predefined({ message: `Board ${title.value} added!` });
     onReset();
   }
 );

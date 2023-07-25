@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 
 import { useWindow } from 'src/shared/composables';
-import { HomeHeader } from 'src/home/components';
+import { HomeHeader, LateralMenu } from '../components';
 
 const { responsive, breakpoint } = useWindow();
 const drawer = ref(false);
@@ -13,7 +13,7 @@ const drawer = ref(false);
     <HomeHeader @on:toggle="drawer = !drawer" />
 
     <q-drawer :breakpoint="breakpoint" v-model="drawer" side="left" v-if="responsive" bordered>
-      All boards name here
+      <LateralMenu :is-drawer="responsive" />
     </q-drawer>
 
     <q-page-container>

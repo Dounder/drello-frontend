@@ -27,11 +27,12 @@ const useCookies = () => {
     //! Getters
     //? Methods
     saveCredentials: (username: string, password: string) => {
+      console.log('saveCredentials');
       const { encryptedUsername, encryptedPassword } = encryptCredentials(username, password);
 
       cookies.set('login', JSON.stringify({ user: encryptedUsername, pass: encryptedPassword }), { expires: 365 });
     },
-    loadCredentials: () => {
+    getCredentials: () => {
       const loginData = cookies.get('login') as { user: string; pass: string };
 
       if (loginData) {
@@ -39,7 +40,7 @@ const useCookies = () => {
 
         const { decryptedUsername, decryptedPassword } = decryptCredentials(user, pass);
 
-        return { decryptedUsername, decryptedPassword };
+        return { username: decryptedUsername, password: decryptedPassword };
       }
     },
     saveUserData: (data: AuthResponse) => {

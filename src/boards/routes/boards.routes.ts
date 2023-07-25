@@ -3,14 +3,6 @@ import { RouteRecordRaw } from 'vue-router';
 
 export const boardsRoutes: RouteRecordRaw[] = [
   {
-    path: '',
-    redirect: { name: 'boards-page' },
-  },
-  {
-    path: '/',
-    redirect: { name: 'boards-page' },
-  },
-  {
     path: '/boards',
     name: 'board-layout',
     component: () => import('src/boards/layouts/BoardLayout.vue'),
@@ -23,7 +15,7 @@ export const boardsRoutes: RouteRecordRaw[] = [
       {
         path: '',
         name: 'boards-page',
-        component: () => import('src/boards/pages/BoardsPage.vue'),
+        component: () => import('src/boards/pages/BoardPage.vue'),
       },
     ],
   },

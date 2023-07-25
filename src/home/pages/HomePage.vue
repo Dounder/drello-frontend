@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { useWindow } from 'src/shared/composables';
 import { reactive } from 'vue';
-import { BoardPageGallery, BoardPageMenu } from '../component';
-import { useBoards } from '../composables';
+
+import { BoardGallery } from 'src/boards/component';
+import { LateralMenu } from '../components';
+import { useBoards } from 'src/boards/composables';
+import { useWindow } from 'src/shared/composables';
 
 const { responsive } = useWindow();
 const { boardsQuery } = useBoards();
@@ -17,15 +19,11 @@ const getOffset = (offset: number) => {
 
 <template>
   <q-page :style-fn="getOffset">
-    <BoardPageMenu v-if="!responsive" :offset="page.offset" :is-drawer="false" />
+    <LateralMenu v-if="!responsive" :offset="page.offset" :is-drawer="false" />
     <q-inner-loading :showing="boardsQuery.isLoading.value">
       <q-spinner-gears size="50px" color="primary" />
     </q-inner-loading>
-    <BoardPageGallery
-      v-if="!boardsQuery.isLoading.value"
-      :height="page.minHeight"
-      :boards="boardsQuery.data.value || []"
-    />
+    <BoardGallery v-if="!boardsQuery.isLoading.value" :height="page.minHeight" :boards="boardsQuery.data.value || []" />
   </q-page>
 </template>
 

@@ -3,6 +3,7 @@ import { createMemoryHistory, createRouter, createWebHashHistory, createWebHisto
 
 import { authRoutes } from 'src/auth/routes/auth.routes';
 import { boardsRoutes } from 'src/boards/routes/boards.routes';
+import { homeRoutes } from 'src/home/routes/home.routes';
 
 /*
  * If not building with SSR mode, you can
@@ -23,8 +24,9 @@ export default route(function (/* { store, ssrContext } */) {
   const Router = createRouter({
     scrollBehavior: () => ({ left: 0, top: 0 }),
     routes: [
-      ...boardsRoutes,
       ...authRoutes,
+      ...homeRoutes,
+      ...boardsRoutes,
       { path: '/:catchAll(.*)*', component: () => import('src/shared/pages/ErrorNotFound.vue') },
     ],
 
