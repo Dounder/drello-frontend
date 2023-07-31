@@ -25,6 +25,7 @@ const useAuth = () => {
 
   return {
     //* Props
+    store,
     login,
     vertical,
     logout: () => {

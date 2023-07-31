@@ -1,25 +1,9 @@
-<script setup lang="ts">
-import { ref } from 'vue';
-
-import { useWindow } from 'src/shared/composables';
-import { HomeHeader } from 'src/home/components';
-
-const { responsive, breakpoint } = useWindow();
-const drawer = ref(false);
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <q-layout view="hHh lpR fFf">
-    <HomeHeader @on:toggle="drawer = !drawer" />
-
-    <q-drawer :breakpoint="breakpoint" v-model="drawer" side="left" v-if="responsive" bordered>
-      All boards name here
-    </q-drawer>
-
-    <q-page-container>
-      <router-view />
-    </q-page-container>
-  </q-layout>
+  <q-page padding>
+    <router-view />
+  </q-page>
 </template>
 
 <style lang="scss" scoped></style>

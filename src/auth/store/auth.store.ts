@@ -15,8 +15,8 @@ export const useAuthStore = defineStore('auth', () => {
     isLoggedIn: computed(() => !!token.value),
 
     //! Actions
-    setCredentials: (creds: AuthResponse | undefined) => {
-      if (creds === undefined) {
+    setCredentials: (creds: AuthResponse | undefined | null) => {
+      if (creds === undefined || creds === null) {
         user.value = null;
         token.value = null;
         return;

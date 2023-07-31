@@ -1,12 +1,12 @@
 import { RouteRecordRaw } from 'vue-router';
-import { useAuthStore } from '../store/auth.store';
+import { useAuthStore } from '../../auth/store/auth.store';
 
 export const authRoutes: RouteRecordRaw[] = [
   {
     path: '/auth',
     name: 'auth-layout',
     component: () => import('src/auth/layouts/AuthLayout.vue'),
-    beforeEnter: (to, from, next) => {
+    beforeEnter: (_, __, next) => {
       const token = useAuthStore().isLoggedIn;
 
       !token ? next() : next({ name: 'home-page' });

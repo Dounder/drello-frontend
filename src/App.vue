@@ -3,41 +3,13 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue';
-import { useAuth, useAuthMutation } from './auth/composables';
-import { useAuthStore } from './auth/store/auth.store';
+import { useAuth } from './auth/composables';
 import { useCookies } from './shared/composables';
 
-const { getToken, getUser, getCredentials, saveCredentials, saveUserData } = useCookies();
-const { setCredentials, logout } = useAuthStore();
-const { isTokenExpired } = useAuth();
-const { loginMutation } = useAuthMutation();
+const { getAuthData } = useCookies();
+const { store } = useAuth();
 
-const token = getToken();
-const user = getUser();
-const credentials = getCredentials();
+const data = getAuthData();
 
-const reLogin = () => {
-  if (credentials) {
-    const { username, password } = credentials;
-    loginMutation.mutate({ username, password });
-  } else {
-    logout();
-  }
-};
-
-if (token && user) {
-  isTokenExpired(token) ? reLogin() : setCredentials({ token, user });
-}
-
-watch(
-  () => loginMutation.isSuccess.value,
-  (success) => {
-    if (success) {
-      console.log(loginMutation.data.value);
-      if (loginMutation.data.value) saveUserData(loginMutation.data.value);
-      if (credentials) saveCredentials(credentials.username, credentials.password);
-    }
-  }
-);
+if (data) store.setCredentials(data);
 </script>

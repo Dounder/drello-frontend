@@ -1,7 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const { id, title } = route.params;
+</script>
 
 <template>
-  <h1>BoardsPage</h1>
+  <p>Board: {{ title }} - {{ id }}</p>
 </template>
 
 <style lang="scss" scoped></style>

@@ -1,13 +1,20 @@
 <script setup lang="ts">
+import { Board } from '../interfaces/board.interface';
+
 interface Props {
-  title: string;
+  board: Board;
+}
+
+interface Emits {
+  (e: 'on:click', board: Board): void;
 }
 
 defineProps<Props>();
+const emits = defineEmits<Emits>();
 </script>
 
 <template>
-  <article class="card flex flex-center">{{ title }}</article>
+  <article class="card flex flex-center" @click="emits('on:click', board)">{{ board.title }}</article>
 </template>
 
 <style lang="scss" scoped>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { BoardCard, GalleryHeader } from '.';
 import { Board } from '../interfaces/board.interface';
 
@@ -8,6 +9,12 @@ interface Props {
 }
 
 defineProps<Props>();
+const router = useRouter();
+
+const handleClick = ({ id, title }: Board) => {
+  title = title.replace(/\s/g, '_');
+  router.push({ name: 'board-page', params: { id, title } });
+};
 </script>
 
 <template>
@@ -15,7 +22,7 @@ defineProps<Props>();
     <q-scroll-area :style="{ height: `calc(${height} - 2rem)` }" class="full-width">
       <GalleryHeader />
       <section class="gallery">
-        <BoardCard v-for="{ id, title } in boards" :key="id" :title="title" />
+        <BoardCard v-for="board in boards" :key="board.id" :board="board" @on:click="handleClick" />
       </section>
     </q-scroll-area>
   </section>
