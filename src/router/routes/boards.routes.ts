@@ -5,7 +5,6 @@ export const boardsRoutes: RouteRecordRaw[] = [
     path: '/board',
     name: 'board-layout',
     component: () => import('src/boards/layouts/BoardLayout.vue'),
-    redirect: { name: 'home-page' },
     children: [
       {
         path: ':title/:id',

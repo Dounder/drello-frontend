@@ -8,8 +8,9 @@ export const authRoutes: RouteRecordRaw[] = [
     component: () => import('src/auth/layouts/AuthLayout.vue'),
     beforeEnter: (_, __, next) => {
       const token = useAuthStore().isLoggedIn;
+      const user = useAuthStore().user;
 
-      !token ? next() : next({ name: 'home-page' });
+      !token ? next() : next({ name: 'home-page', params: { username: user?.username } });
     },
     children: [
       {

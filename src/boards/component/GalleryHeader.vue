@@ -51,6 +51,7 @@ watch(
       :label="isMobile ? '' : 'Add Board'"
       size="md"
       no-caps
+      class="transition"
     >
       <q-menu
         :anchor="isMobile ? 'bottom left' : 'bottom start'"

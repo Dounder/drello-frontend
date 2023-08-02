@@ -37,9 +37,11 @@ watch(
   (success) => {
     if (success) {
       saveCredentials(login.username, login.password);
-      if (loginMutation.data.value) saveUserData(loginMutation.data.value);
-      onReset();
-      replace({ name: 'home-page' });
+      if (loginMutation.data.value) {
+        saveUserData(loginMutation.data.value);
+        replace({ name: 'home-page', params: { username: loginMutation.data.value?.user.username } });
+        onReset();
+      }
     }
   }
 );

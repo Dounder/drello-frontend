@@ -11,9 +11,10 @@ const getBoards = async (limit = 30, offset = 0): Promise<Board[]> => {
       variables: { limit, offset },
     });
 
+    if (data.errors) throw new Error(data.errors[0].message);
+
     return data.data.items;
   } catch (error) {
-    console.log(error);
     return [];
   }
 };

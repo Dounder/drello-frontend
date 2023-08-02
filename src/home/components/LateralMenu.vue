@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { boardMenuOptions } from '../helpers';
+import { useAuth } from 'src/auth/composables';
+import { BoardIcon } from 'src/shared/components';
 
 interface Props {
   offset?: number;
@@ -7,21 +8,26 @@ interface Props {
 }
 
 defineProps<Props>();
+const { user } = useAuth();
 </script>
 
 <template>
   <section :class="isDrawer ? 'menu-drawer' : 'menu'" :style="{ top: `56px` }">
     <q-list>
-      <template v-for="{ icon, label, routeName } in boardMenuOptions" :key="routeName">
-        <q-item clickable :to="{ name: routeName }" exact exact-active-class="active-link" v-ripple>
-          <q-item-section avatar>
-            <q-icon :name="icon" />
-          </q-item-section>
-          <q-item-section>
-            {{ label }}
-          </q-item-section>
-        </q-item>
-      </template>
+      <q-item
+        clickable
+        :to="{ name: 'home-page', params: { username: user?.username } }"
+        exact
+        exact-active-class="active-link"
+        v-ripple
+      >
+        <q-item-section avatar>
+          <q-icon>
+            <BoardIcon />
+          </q-icon>
+        </q-item-section>
+        <q-item-section> Boards </q-item-section>
+      </q-item>
     </q-list>
   </section>
 </template>
